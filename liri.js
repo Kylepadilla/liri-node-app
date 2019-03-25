@@ -82,20 +82,23 @@ var movieInput = "";
         movieInput = "mr.nobody"
     }
     else{movieInput = userInput}
+
 axios.get("http://www.omdbapi.com/?t=" + movieInput + "&apikey=7ab220f2&")
 .then(
   function(response) {
         let movie = response.data
-    console.log("\r\n\r\n\r\n");
+        var tomatoes = JSON.stringify(movie.Ratings[1])
+        var tomRatings = tomatoes.slice(36,-1)
+    console.log("\n---------------------------------")
     console.log("Title: " + JSON.stringify(movie.Title));
     console.log("Realse Year: " + JSON.stringify(movie.Year));
     console.log("IMDB Rating: " + JSON.stringify(movie.imdbRating));
-    console.log("Rotten Tomatoes: " + JSON.stringify(movie.Ratings[1]));
-    console.log("Country: " + JSON.stringify(movie.Coountry));
-    console.log("Language: " + JSON.stringify(movie.Languge));
-    console.log("Plot: " + JSON.stringify(movie.Plot));
+    console.log("Rotten Tomatoes: " + tomRatings);
+    console.log("Country: " + JSON.stringify(movie.Country));
+    console.log("Language: " + JSON.stringify(movie.Language) + "\n");
+    console.log("Plot: \n" + JSON.stringify(movie.Plot)+"\n");
     console.log("Actors: " + JSON.stringify(movie.Actors));
-    console.log("\r\n\r\n\r\n");
+    console.log("---------------------------------")
       })
     };
 
@@ -105,8 +108,27 @@ function random() {
 
     fs.readFile('random.txt',"UTF-8", function(err,data) {
         if (err) throw err;
-        console.log(data);
+
+        var randomCommand = data.split(",")
+        // console.log(randomCommand)
+        var command = JSON.stringify(randomCommand[0]);
+        var randomInput = randomCommand[1];
+
+        console.log(command);
+        console.log(randomInput)
+
+            if (command == "concert-this"){
+                userInput = randomInput;
+             concert();
+            }
+            if (command == "spotify-this-song"){
+                userInput = randomInput;
+             music();
+            }
+            if (command == "movie-this"){
+                userInput = randomInput;
+             movie();
+            }
 
     })
-
 }
