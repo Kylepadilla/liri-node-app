@@ -25,17 +25,17 @@ break;
 
 
 // Node-Spotify-API request
-function music(query) {
+function music() {
     
 
     spotify.search({
         type: 'track',
         query: userInput
-    }).then(function(response) {
+    }).then(function(data) {
         
-        var spotifyResponse = response
+        var spotifyResponse = data
 
-        console.log(JSON.stringify(spotifyResponse));
+        console.log(spotifyResponse.tracks);
       })
       .catch(function(err) {
         console.log(err);
